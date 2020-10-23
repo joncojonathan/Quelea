@@ -509,6 +509,7 @@ public class OptionsGeneralPanel extends GridPane implements PropertyPanel {
         defaultSongDBUpdateCheckBox.setSelected(!props.getDefaultSongDBUpdate());
         oneLineModeCheckBox.setSelected(props.getOneLineMode());
         autoTranslateCheckBox.setSelected(props.getAutoTranslate());
+        churchCcliNumberTextField.setText(QueleaProperties.get().getChurchCcliNum());
         autoPlayVidCheckBox.setSelected(props.getAutoPlayVideo());
         advanceOnLiveCheckBox.setSelected(props.getAdvanceOnLive());
         overflowSongCheckBox.setSelected(props.getSongOverflow());
