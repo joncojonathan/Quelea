@@ -689,6 +689,16 @@ public class OptionsGeneralPanel extends GridPane implements PropertyPanel {
     }
 
     /**
+     * Get the church CCLI number text field.
+     * <p/>
+     *
+     * @return the "church CCLI number" text field
+     */
+    public TextField getChurchCcliNumberTextField() {
+        return churchCcliNumberTextField;
+    }
+
+    /**
      * Get the "use small song text" checkbox.
      * <p/>
      *
