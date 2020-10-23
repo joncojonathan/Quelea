@@ -570,6 +570,8 @@ public class OptionsGeneralPanel extends GridPane implements PropertyPanel {
         props.setOneLineMode(oneLineMode);
         boolean autoTranslate = getAutoTranslateCheckBox().isSelected();
         props.setAutoTranslate(autoTranslate);
+        String churchCcliNumber = getChurchCcliNumberTextField().toString();
+        props.setChurchCcliNum(churchCcliNumber);
         boolean autoPlayVid = autoPlayVidCheckBox.isSelected();
         props.setAutoPlayVideo(autoPlayVid);
         boolean autoAdvance = advanceOnLiveCheckBox.isSelected();
