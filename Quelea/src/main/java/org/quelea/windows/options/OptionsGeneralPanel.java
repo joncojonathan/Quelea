@@ -56,6 +56,7 @@ public class OptionsGeneralPanel extends GridPane implements PropertyPanel {
     private final CheckBox oneMonitorWarnCheckBox;
     private final CheckBox oneLineModeCheckBox;
     private final CheckBox autoTranslateCheckBox;
+    private final TextField ccliNumberTextField;
     private final CheckBox clearLiveOnRemoveCheckBox;
     private final CheckBox embedMediaInScheduleCheckBox;
     private final CheckBox itemThemeOverrideCheckBox;
@@ -223,6 +224,15 @@ public class OptionsGeneralPanel extends GridPane implements PropertyPanel {
         autoTranslateLabel.setLabelFor(autoTranslateCheckBox);
         GridPane.setConstraints(autoTranslateCheckBox, 2, rows);
         getChildren().add(autoTranslateCheckBox);
+        rows++;
+
+        Label ccliNumberLabel = new Label(LabelGrabber.INSTANCE.getLabel("ccli.number.label"));
+        GridPane.setConstraints(ccliNumberLabel, 1, rows);
+        getChildren().add(ccliNumberLabel);
+        ccliNumberTextField = new TextField();
+        ccliNumberLabel.setLabelFor(ccliNumberTextField);
+        GridPane.setConstraints(ccliNumberTextField, 2, rows);
+        getChildren().add(ccliNumberTextField);
         rows++;
 
         Label defaultSongDBUpdateLabel = new Label(LabelGrabber.INSTANCE.getLabel("copy.song.db.default"));
