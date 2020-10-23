@@ -2239,6 +2239,11 @@ public final class QueleaProperties extends Properties {
         return getProperty("church.ccli.num", null);
     }
 
+    public void setChurchCcliNum(String ChurchCcliNumber) {
+        setProperty("church.ccli.num", ChurchCcliNumber);
+        write();
+    }
+
     /**
      * Get the directory used for storing notices.
      * <p>
