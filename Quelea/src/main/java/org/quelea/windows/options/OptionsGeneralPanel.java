@@ -57,7 +57,7 @@ public class OptionsGeneralPanel extends GridPane implements PropertyPanel {
     private final CheckBox oneMonitorWarnCheckBox;
     private final CheckBox oneLineModeCheckBox;
     private final CheckBox autoTranslateCheckBox;
-    private final TextField ccliNumberTextField;
+    private final TextField churchCcliNumberTextField;
     private final CheckBox clearLiveOnRemoveCheckBox;
     private final CheckBox embedMediaInScheduleCheckBox;
     private final CheckBox itemThemeOverrideCheckBox;
@@ -227,13 +227,13 @@ public class OptionsGeneralPanel extends GridPane implements PropertyPanel {
         getChildren().add(autoTranslateCheckBox);
         rows++;
 
-        Label ccliNumberLabel = new Label(LabelGrabber.INSTANCE.getLabel("ccli.number.label"));
-        GridPane.setConstraints(ccliNumberLabel, 1, rows);
-        getChildren().add(ccliNumberLabel);
-        ccliNumberTextField = new TextField();
-        ccliNumberLabel.setLabelFor(ccliNumberTextField);
-        GridPane.setConstraints(ccliNumberTextField, 2, rows);
-        getChildren().add(ccliNumberTextField);
+        Label churchCcliNumberLabel = new Label(LabelGrabber.INSTANCE.getLabel("ccli.number.label"));
+        GridPane.setConstraints(churchCcliNumberLabel, 1, rows);
+        getChildren().add(churchCcliNumberLabel);
+        churchCcliNumberTextField = new TextField();
+        churchCcliNumberLabel.setLabelFor(churchCcliNumberTextField);
+        GridPane.setConstraints(churchCcliNumberTextField, 2, rows);
+        getChildren().add(churchCcliNumberTextField);
         rows++;
 
         Label defaultSongDBUpdateLabel = new Label(LabelGrabber.INSTANCE.getLabel("copy.song.db.default"));
