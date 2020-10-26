@@ -1,17 +1,17 @@
-/* 
+/*
  * This file is part of Quelea, free projection software for churches.
- * 
- * 
+ *
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.DragEvent;
@@ -59,6 +60,7 @@ import org.quelea.windows.web.WebPanel;
  * The common superclass of the live / preview panels used for selecting the
  * lyrics / picture.
  * <p/>
+ *
  * @author Michael
  */
 public abstract class LivePreviewPanel extends BorderPane {
@@ -104,44 +106,31 @@ public abstract class LivePreviewPanel extends BorderPane {
         cardPanel.add(webPanel, WEB_LABEL);
         cardPanel.add(imageGroupPanel, IMAGE_GROUP_LABEL);
         cardPanel.show(LYRICS_LABEL);
-        lyricsPanel.getLyricsList().setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent me) {
-                if (me.isControlDown() || me.isShiftDown()) {
-                    doQuickEdit(lyricsPanel.getLyricsList().getQuickEditIndex());
-                }
+        lyricsPanel.getLyricsList().setOnMouseClicked(me -> {
+            if (me.isControlDown() || me.isShiftDown()) {
+                doQuickEdit(lyricsPanel.getLyricsList().getQuickEditIndex());
             }
         });
 
-        lyricsPanel.getLyricsList().setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent ke) {
-                if (ke.isControlDown() && ke.getCode() == KeyCode.Q) {
-                    doQuickEdit(lyricsPanel.getCurrentIndex());
-                }
+        lyricsPanel.getLyricsList().setOnKeyPressed(ke -> {
+            if (ke.isControlDown() && ke.getCode() == KeyCode.Q) {
+                doQuickEdit(lyricsPanel.getCurrentIndex());
             }
         });
         presentationPanel.buildLoopTimeline();
-        setOnDragOver(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
-                if (event.getDragboard().getContent(SongDisplayable.SONG_DISPLAYABLE_FORMAT) != null) {
-                    event.acceptTransferModes(TransferMode.ANY);
-                }
+        setOnDragOver(event -> {
+            if (event.getDragboard().getContent(SongDisplayable.SONG_DISPLAYABLE_FORMAT) != null) {
+                event.acceptTransferModes(TransferMode.ANY);
             }
         });
-        setOnDragDropped(new EventHandler<DragEvent>() {
-
-            @Override
-            public void handle(DragEvent event) {
-                if (event.getDragboard().getContent(SongDisplayable.SONG_DISPLAYABLE_FORMAT) instanceof SongDisplayable) {
-                    final SongDisplayable displayable = (SongDisplayable) event.getDragboard().getContent(SongDisplayable.SONG_DISPLAYABLE_FORMAT);
-                    if (displayable != null) {
-                        setDisplayable(displayable, 0);
-                    }
+        setOnDragDropped(event -> {
+            if (event.getDragboard().getContent(SongDisplayable.SONG_DISPLAYABLE_FORMAT) instanceof SongDisplayable) {
+                final SongDisplayable displayable = (SongDisplayable) event.getDragboard().getContent(SongDisplayable.SONG_DISPLAYABLE_FORMAT);
+                if (displayable != null) {
+                    setDisplayable(displayable, 0);
                 }
-                event.consume();
             }
+            event.consume();
         });
     }
 
@@ -170,33 +159,37 @@ public abstract class LivePreviewPanel extends BorderPane {
     /**
      * Get the video panel on this live / preview panel.
      * <p/>
+     *
      * @return the presentation panel.
      */
     public MultimediaPanel getVideoPanel() {
         return videoPanel;
     }
-    
+
     /**
      * Get the presentation panel on this live / preview panel.
      * <p/>
+     *
      * @return the presentation panel.
      */
     public PresentationPanel getPresentationPanel() {
         return presentationPanel;
     }
-    
+
     /**
      * Get the PDF panel on this live / preview panel.
      * <p/>
+     *
      * @return the PDF panel.
      */
     public PdfPanel getPdfPanel() {
         return pdfPanel;
     }
-    
+
     /**
      * Get the image group panel on this live / preview panel.
      * <p/>
+     *
      * @return the image group panel.
      */
     public ImageGroupPanel getImageGroupPanel() {
@@ -206,6 +199,7 @@ public abstract class LivePreviewPanel extends BorderPane {
     /**
      * Perform a quick edit on the given index.
      * <p/>
+     *
      * @param index the index on which to perform the quick edit.
      */
     public void doQuickEdit(int index) {
@@ -228,6 +222,7 @@ public abstract class LivePreviewPanel extends BorderPane {
      * Get the container panel (the one using the cardlayout that flips between
      * the various available panels.
      * <p/>
+     *
      * @return the container panel.
      */
     public Node getCurrentPane() {
@@ -252,7 +247,7 @@ public abstract class LivePreviewPanel extends BorderPane {
             videoPanel.showDisplayable(null, 0);
         }
         if (WEB_LABEL.equals(currentLabel)) {
-            webPanel.showDisplayable((WebDisplayable)null);
+            webPanel.showDisplayable((WebDisplayable) null);
         }
         for (Node panel : cardPanel) {
             if (panel instanceof ContainedPanel) {
@@ -271,6 +266,7 @@ public abstract class LivePreviewPanel extends BorderPane {
      * Get the currently selected displayable index. Only suitable for
      * powerpoint / PDF / image group / lyrics panels.
      * <p/>
+     *
      * @return the currently selected displayable index.
      */
     public int getIndex() {
@@ -284,14 +280,15 @@ public abstract class LivePreviewPanel extends BorderPane {
             return lyricsPanel.getIndex();
         }
     }
-    
+
     /**
      * Get the length of the current displayable. Only suitable for
      * powerpoint / PDF / image group / lyrics panels.
      * <p/>
+     *
      * @return the currently selected displayable index.
      */
-    
+
     public int getLenght() {
         if (PRESENTATION_LABEL.equals(currentLabel)) {
             return presentationPanel.getSlideCount();
@@ -357,6 +354,7 @@ public abstract class LivePreviewPanel extends BorderPane {
     /**
      * Get the select lyrics panel on this panel.
      * <p/>
+     *
      * @return the select lyrics panel.
      */
     public SelectLyricsPanel getLyricsPanel() {
@@ -366,8 +364,9 @@ public abstract class LivePreviewPanel extends BorderPane {
     /**
      * Set the displayable shown on this panel.
      * <p/>
+     *
      * @param displayable the displayable to show.
-     * @param index the index of the displayable to show, if relevant.
+     * @param index       the index of the displayable to show, if relevant.
      */
     public void setDisplayable(final Displayable displayable, final int index) {
         Utils.checkFXThread();
@@ -375,12 +374,14 @@ public abstract class LivePreviewPanel extends BorderPane {
             lyricsPanel.removeCurrentDisplayable();
         }
 
+        QueleaApp.get().getMainWindow().getMainPanel().getSchedulePanel().getScheduleList().getListView().refresh();
+
         this.displayable = displayable;
         presentationPanel.stopCurrent();
         pdfPanel.stopCurrent();
         imageGroupPanel.stopCurrent();
         videoPanel.stopCurrent();
-        
+
         audioPanel.removeCurrentDisplayable();
         videoPanel.removeCurrentDisplayable();
         timerPanel.removeCurrentDisplayable();
@@ -402,7 +403,7 @@ public abstract class LivePreviewPanel extends BorderPane {
             videoPanel.showDisplayable(null, 0);
         }
         if (WEB_LABEL.equals(currentLabel)) {
-            webPanel.showDisplayable((WebDisplayable)null);
+            webPanel.showDisplayable((WebDisplayable) null);
         }
         if (displayable instanceof TextDisplayable) {
             lyricsPanel.showDisplayable((TextDisplayable) displayable, index);
@@ -468,6 +469,7 @@ public abstract class LivePreviewPanel extends BorderPane {
      * Get the displayable currently being displayed, or null if there isn't
      * one.
      * <p/>
+     *
      * @return the current displayable.
      */
     public Displayable getDisplayable() {
@@ -477,6 +479,7 @@ public abstract class LivePreviewPanel extends BorderPane {
     /**
      * Register a display canvas with this lyrics panel.
      * <p/>
+     *
      * @param canvas the canvas to register.
      */
     public final void registerDisplayCanvas(final DisplayCanvas canvas) {
@@ -491,6 +494,7 @@ public abstract class LivePreviewPanel extends BorderPane {
     /**
      * Register a display window with this lyrics panel.
      * <p/>
+     *
      * @param window the window to register.
      */
     public final void registerDisplayWindow(final DisplayStage window) {
@@ -503,6 +507,7 @@ public abstract class LivePreviewPanel extends BorderPane {
     /**
      * Get the canvases registered to this panel.
      * <p/>
+     *
      * @return the canvases.
      */
     public Set<DisplayCanvas> getCanvases() {
@@ -512,6 +517,7 @@ public abstract class LivePreviewPanel extends BorderPane {
     /**
      * Get the windows registered to this panel.
      * <p/>
+     *
      * @return the windows.
      */
     public Set<DisplayStage> getWindows() {
@@ -521,15 +527,17 @@ public abstract class LivePreviewPanel extends BorderPane {
     /**
      * Get the timer panel.
      * <p/>
+     *
      * @return the timer panel.
      */
     public TimerPanel getTimerPanel() {
         return timerPanel;
     }
-    
+
     /**
      * Get the web panel.
      * <p/>
+     *
      * @return the web panel.
      */
     public WebPanel getWebPanel() {

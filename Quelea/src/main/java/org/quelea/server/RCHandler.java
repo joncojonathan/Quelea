@@ -377,7 +377,7 @@ public class RCHandler {
                 response.append("<head><meta charset=\"UTF-8\"></head>");
                 response.append(sd.getTitle()).append("<br/>");
                 response.append(sd.getAuthor()).append("<br/><br/>");
-                response.append(sd.getLyrics(false, false).replaceAll("\n", "<br/>")).append("<br/><br/>");
+                response.append(sd.getLyrics(false, false, true).replaceAll("\n", "<br/>")).append("<br/><br/>");
                 response.append("<a href=\"/add/").append(songID).append("\">").append(LabelGrabber.INSTANCE.getLabel("rcs.add.song")).append("</a>");
                 response.append("</html>");
                 return response.toString();
@@ -398,7 +398,7 @@ public class RCHandler {
             final LibraryBiblePanel lbp = QueleaApp.get().getMainWindow().getMainPanel().getLibraryPanel().getBiblePanel();
             boolean success = false;
             for (int i = 0; i < lbp.getBibleSelector().getItems().size(); i++) {
-                if (lbp.getBibleSelector().getItems().get(i).getBibleName().equalsIgnoreCase(translation)) {
+                if (lbp.getBibleSelector().getItems().get(i).getBibleName().replaceAll("/", " - ").equalsIgnoreCase(translation)) {
                     final int j = i;
                     Utils.fxRunAndWait(() -> {
                         lbp.getBibleSelector().selectionModelProperty().get().clearAndSelect(j);
@@ -530,7 +530,7 @@ public class RCHandler {
             if (b.getBibleName().equals(QueleaProperties.get().getDefaultBible())) {
                 ret.append("*");
             }
-            ret.append(b.getBibleName()).append("\n");
+            ret.append(b.getBibleName().replaceAll("/", " - ")).append("\n");
         }
         return ret.toString();
     }
@@ -543,7 +543,7 @@ public class RCHandler {
             final LibraryBiblePanel lbp = QueleaApp.get().getMainWindow().getMainPanel().getLibraryPanel().getBiblePanel();
             boolean success = false;
             for (int i = 0; i < lbp.getBibleSelector().getItems().size(); i++) {
-                if (lbp.getBibleSelector().getItems().get(i).getBibleName().equalsIgnoreCase(searchString)) {
+                if (lbp.getBibleSelector().getItems().get(i).getBibleName().replaceAll("/", " - ").equalsIgnoreCase(searchString)) {
                     final int j = i;
                     Utils.fxRunAndWait(() -> {
                         lbp.getBibleSelector().selectionModelProperty().get().clearAndSelect(j);

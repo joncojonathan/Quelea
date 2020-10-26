@@ -27,7 +27,6 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.scene.control.CheckBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -241,7 +240,7 @@ public final class Main extends Application {
                     }
                     OOUtils.attemptInit();
                     Platform.runLater(() -> {
-                        mainWindow = new MainWindow(true);
+                        mainWindow = new MainWindow(true, VLC_OK);
                     });
 
                     backgroundExecutor.submit(() -> {
@@ -276,7 +275,7 @@ public final class Main extends Application {
                     List<String> cmdParams = getParameters().getRaw();
                     if (!cmdParams.isEmpty()) {
                         String schedulePath = cmdParams.get(cmdParams.size() - 1);
-                        if (!schedulePath.contains("--userhome=")) {
+                        if (!schedulePath.contains("--userhome=") && !schedulePath.contains("-psn_")){
                             LOGGER.log(Level.INFO, "Opening schedule through argument: {0}", schedulePath);
                             Platform.runLater(() -> {
                                 QueleaApp.get().openSchedule(new File(schedulePath));
@@ -309,14 +308,10 @@ public final class Main extends Application {
                             mainWindow.show();
                         }
                         showMonitorWarning(monitorNumber);
-                        CheckBox convertCheckBox = QueleaApp.get().getMainWindow().getOptionsDialog().getRecordingSettingsPanel().getConvertRecordingsCheckBox();
                         if (VLC_OK && VLC_INIT) {
                             VLCWindow.INSTANCE.refreshPosition();
-                            convertCheckBox.setDisable(false);
                         } else { //Couldn't find the VLC libraries.
                             QueleaProperties.get().setConvertRecordings(false);
-                            convertCheckBox.setSelected(false);
-                            convertCheckBox.setDisable(true);
                             String message;
                             if (VLC_OK) {
                                 message = LabelGrabber.INSTANCE.getLabel("vlc.version.message");
